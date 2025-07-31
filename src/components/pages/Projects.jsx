@@ -144,15 +144,11 @@ const getProjectStats = (projectId) => {
       ) : (
         <Empty
           title="No projects yet"
-          description="Projects help you organize related tasks and track progress more effectively. Click 'Add Project' to get started."
-          icon="FolderOpen"
-          action={
-            <Button onClick={() => setIsAddModalOpen(true)} className="mt-4">
-              <ApperIcon name="Plus" size={16} className="mr-2" />
-              Create Your First Project
-            </Button>
-          }
+icon="FolderOpen"
+          action={() => setIsAddModalOpen(true)}
+          actionLabel="Create Your First Project"
         />
+      )}
       )}
 
       {/* Modals */}

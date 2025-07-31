@@ -179,14 +179,10 @@ const Clients = () => {
       {/* Clients List */}
       {clients.length === 0 ? (
         <Empty 
-          title="No clients found"
+title="No clients yet"
           description="Get started by adding your first client"
-          action={
-            <Button onClick={handleAddClient} className="flex items-center gap-2">
-              <ApperIcon name="Plus" size={16} />
-              Add Client
-            </Button>
-          }
+          action={handleAddClient}
+          actionLabel="Add Client"
         />
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
