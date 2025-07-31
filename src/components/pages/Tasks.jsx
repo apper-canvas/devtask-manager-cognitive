@@ -96,13 +96,13 @@ const handleTaskDetailsUpdated = (updatedTask) => {
     return statusMatch && projectMatch
   })
 
-  const getFilterCount = (status) => {
+const getFilterCount = (status) => {
     const projectFilteredTasks = projectFilter === "all" 
       ? tasks 
-      : tasks.filter(task => task.projectId?.toString() === projectFilter)
+      : tasks.filter(task => task.projectId_c?.Id?.toString() === projectFilter || task.projectId_c?.toString() === projectFilter)
     
     if (status === "all") return projectFilteredTasks.length
-    return projectFilteredTasks.filter(task => task.status === status).length
+    return projectFilteredTasks.filter(task => task.status_c === status).length
   }
 
   if (loading) return <Loading message="Loading tasks..." />

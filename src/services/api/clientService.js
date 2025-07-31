@@ -101,22 +101,20 @@ export const clientService = {
         console.error("Client data is required");
         return null;
       }
-
-      // Only include Updateable fields
+// Only include Updateable fields
       const params = {
         records: [
           {
-Name: clientData.Name || '',
-          Tags: clientData.Tags || '',
-          Owner: parseInt(clientData.Owner) || 0,
-          income_c: parseFloat(clientData.income_c || clientData.income) || 0,
-          gender_c: clientData.gender_c || clientData.gender || '',
-          website_c: clientData.website_c || clientData.website || '',
-          customerrating_c: parseInt(clientData.customerrating_c || clientData.customerRating) || 0
-        }
-      ]
-    };
-
+            "Name": clientData.Name || '',
+            "Tags": clientData.Tags || '',
+            "Owner": parseInt(clientData.Owner) || 0,
+            "income_c": parseFloat(clientData.income_c || clientData.income) || 0,
+            "gender_c": clientData.gender_c || clientData.gender || '',
+            "website_c": clientData.website_c || clientData.website || '',
+            "customerrating_c": parseInt(clientData.customerrating_c || clientData.customerRating) || 0
+          }
+        ]
+      };
       const response = await apperClient.createRecord(tableName, params);
       
       if (!response.success) {
@@ -156,23 +154,21 @@ Name: clientData.Name || '',
         console.error("Client data is required for update");
         return null;
       }
-
-      // Only include Updateable fields plus Id
+// Only include Updateable fields plus Id
       const params = {
         records: [
           {
-            Id: parseInt(id),
-Name: clientData.Name || '',
-          Tags: clientData.Tags || '',
-          Owner: parseInt(clientData.Owner) || 0,
-          income_c: parseFloat(clientData.income_c || clientData.income) || 0,
-          gender_c: clientData.gender_c || clientData.gender || '',
-          website_c: clientData.website_c || clientData.website || '',
-          customerrating_c: parseInt(clientData.customerrating_c || clientData.customerRating) || 0
-        }
-      ]
-    };
-
+            "Id": parseInt(id),
+            "Name": clientData.Name || '',
+            "Tags": clientData.Tags || '',
+            "Owner": parseInt(clientData.Owner) || 0,
+            "income_c": parseFloat(clientData.income_c || clientData.income) || 0,
+            "gender_c": clientData.gender_c || clientData.gender || '',
+            "website_c": clientData.website_c || clientData.website || '',
+            "customerrating_c": parseInt(clientData.customerrating_c || clientData.customerRating) || 0
+          }
+        ]
+      };
       const response = await apperClient.updateRecord(tableName, params);
       
       if (!response.success) {

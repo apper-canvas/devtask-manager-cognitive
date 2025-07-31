@@ -9,9 +9,9 @@ class ProjectService {
     this.tableName = 'project_c';
   }
 
-  async getAll() {
+async getAll() {
     try {
-const params = {
+      const params = {
         fields: [
           { field: { Name: "Name" } },
           { field: { Name: "description_c" } },
@@ -50,9 +50,9 @@ const params = {
         throw new Error("Project ID is required");
       }
 
-      const params = {
+const params = {
         fields: [
-{ field: { Name: "Name" } },
+          { field: { Name: "Name" } },
           { field: { Name: "description_c" } },
           { field: { Name: "phone_c" } },
           { field: { Name: "color_c" } },
@@ -83,9 +83,9 @@ const params = {
 
   async create(projectData) {
     try {
-      // Only include Updateable fields
+// Only include Updateable fields
       const params = {
-records: [{
+        records: [{
           Name: projectData.name || projectData.Name,
           description_c: projectData.description || projectData.description_c || "",
           phone_c: projectData.phone_c || "",
@@ -135,9 +135,9 @@ records: [{
         throw new Error("Project ID is required for update");
       }
 
-      // Only include Updateable fields
+// Only include Updateable fields
       const params = {
-records: [{
+        records: [{
           Id: parseInt(id),
           Name: projectData.name || projectData.Name,
           description_c: projectData.description || projectData.description_c,

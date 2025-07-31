@@ -81,10 +81,10 @@ class HobbyService {
     }
   }
 
-  async create(hobbyData) {
+async create(hobbyData) {
     try {
       // Only include Updateable fields
-const hobbiesString = Array.isArray(hobbyData.hobbies) ? hobbyData.hobbies.join(', ') : (hobbyData.hobbyName_c || hobbyData.hobbyName || "");
+      const hobbiesString = Array.isArray(hobbyData.hobbies) ? hobbyData.hobbies.join(', ') : (hobbyData.hobbyName_c || hobbyData.hobbyName || "");
       const params = {
         records: [{
           Name: hobbyData.Name || hobbiesString || "",
@@ -130,14 +130,14 @@ const hobbiesString = Array.isArray(hobbyData.hobbies) ? hobbyData.hobbies.join(
     }
   }
 
-  async update(id, hobbyData) {
+async update(id, hobbyData) {
     try {
       if (!id) {
         throw new Error("Hobby ID is required for update");
       }
 
       // Only include Updateable fields
-const hobbiesString = Array.isArray(hobbyData.hobbies) ? hobbyData.hobbies.join(', ') : (hobbyData.hobbyName_c || hobbyData.hobbyName || "");
+      const hobbiesString = Array.isArray(hobbyData.hobbies) ? hobbyData.hobbies.join(', ') : (hobbyData.hobbyName_c || hobbyData.hobbyName || "");
       const params = {
         records: [{
           Id: parseInt(id),
