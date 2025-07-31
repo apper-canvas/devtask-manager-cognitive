@@ -51,8 +51,11 @@ const Sidebar = () => {
 <NavigationItem to="/projects" icon="FolderOpen">
             Projects
           </NavigationItem>
-          <NavigationItem to="/customers" icon="User">
+<NavigationItem to="/customers" icon="User">
             Customers
+          </NavigationItem>
+          <NavigationItem to="/clients" icon="Users">
+            Clients
           </NavigationItem>
           <NavigationItem to="/profile" icon="User">
             Profile
@@ -98,8 +101,11 @@ const Sidebar = () => {
 <NavigationItem to="/projects" icon="FolderOpen" onClick={toggleMobile}>
             Projects
           </NavigationItem>
-          <NavigationItem to="/customers" icon="User" onClick={toggleMobile}>
+<NavigationItem to="/customers" icon="User" onClick={toggleMobile}>
             Customers
+          </NavigationItem>
+          <NavigationItem to="/clients" icon="Users" onClick={toggleMobile}>
+            Clients
           </NavigationItem>
           <NavigationItem to="/profile" icon="User" onClick={toggleMobile}>
             Profile

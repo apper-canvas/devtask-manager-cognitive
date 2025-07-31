@@ -16,6 +16,7 @@ import Dashboard from "@/components/pages/Dashboard";
 import Projects from "@/components/pages/Projects";
 import Customers from "@/components/pages/Customers";
 import Hobbies from "@/components/pages/Hobbies";
+import Clients from "@/components/pages/Clients";
 import Profile from "@/components/pages/Profile";
 // Create auth context
 export const AuthContext = createContext(null);
@@ -130,12 +131,13 @@ function AppContent() {
           <Route path="/error" element={<ErrorPage />} />
           <Route path="/prompt-password/:appId/:emailAddress/:provider" element={<PromptPassword />} />
           <Route path="/reset-password/:appId/:fields" element={<ResetPassword />} />
-          <Route path="/" element={<Layout />}>
+<Route path="/" element={<Layout />}>
             <Route index element={<Dashboard />} />
 <Route path="tasks" element={<Tasks />} />
             <Route path="projects" element={<Projects />} />
 <Route path="customers" element={<Customers />} />
             <Route path="hobbies" element={<Hobbies />} />
+            <Route path="clients" element={<Clients />} />
             <Route path="profile" element={<Profile />} />
           </Route>
         </Routes>
