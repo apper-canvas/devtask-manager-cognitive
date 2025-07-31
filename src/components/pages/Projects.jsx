@@ -146,9 +146,8 @@ const getProjectStats = (projectId) => {
           title="No projects yet"
 icon="FolderOpen"
           action={() => setIsAddModalOpen(true)}
-          actionLabel="Create Your First Project"
+actionLabel="Create Your First Project"
         />
-      )}
       )}
 
       {/* Modals */}
