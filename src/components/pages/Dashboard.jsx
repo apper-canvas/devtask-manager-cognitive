@@ -38,21 +38,20 @@ const Dashboard = () => {
 
   if (loading) return <Loading message="Loading dashboard..." />
   if (error) return <Error message={error} onRetry={loadData} />
-
 const recentTask = tasks
     .sort((a, b) => new Date(b.updatedAt_c || b.updatedAt || b.ModifiedOn) - new Date(a.updatedAt_c || a.updatedAt || a.ModifiedOn))
     .find(task => task.status_c === "inProgress") || tasks[0]
 
   const recentTaskProject = recentTask ? projects.find(p => p.Id === recentTask.projectId_c) : null
-
 const stats = {
     totalTasks: tasks.length,
     completedTasks: tasks.filter(t => t.status_c === "done").length,
     inProgressTasks: tasks.filter(t => t.status_c === "inProgress").length,
     totalProjects: projects.length
   }
+  
   const recentActivity = tasks
-    .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
+    .sort((a, b) => new Date(b.updatedAt_c || b.updatedAt || b.ModifiedOn) - new Date(a.updatedAt_c || a.updatedAt || a.ModifiedOn))
     .slice(0, 5)
 
   return (
@@ -77,8 +76,8 @@ const stats = {
                 {recentTask.description_c && (
                   <p className="text-gray-400 text-sm mb-2">{recentTask.description_c}</p>
                 )}
-                <div className="flex items-center space-x-2 text-xs text-gray-500">
-                  <span>{recentTaskProject?.name || "No Project"}</span>
+<div className="flex items-center space-x-2 text-xs text-gray-500">
+                  <span>{recentTaskProject?.Name || "No Project"}</span>
                   <span>•</span>
                   <span>Last updated {(recentTask.updatedAt_c || recentTask.updatedAt || recentTask.ModifiedOn) ? format(new Date(recentTask.updatedAt_c || recentTask.updatedAt || recentTask.ModifiedOn), "MMM d 'at' h:mm a") : "Unknown"}</span>
                 </div>
