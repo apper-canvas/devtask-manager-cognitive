@@ -45,13 +45,12 @@ const recentTask = tasks
 
   const recentTaskProject = recentTask ? projects.find(p => p.Id === recentTask.projectId_c) : null
 
-  const stats = {
+const stats = {
     totalTasks: tasks.length,
-    completedTasks: tasks.filter(t => t.status === "done").length,
-    inProgressTasks: tasks.filter(t => t.status === "inProgress").length,
+    completedTasks: tasks.filter(t => t.status_c === "done").length,
+    inProgressTasks: tasks.filter(t => t.status_c === "inProgress").length,
     totalProjects: projects.length
   }
-
   const recentActivity = tasks
     .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
     .slice(0, 5)

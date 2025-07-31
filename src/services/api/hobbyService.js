@@ -14,13 +14,15 @@ class HobbyService {
       const params = {
         fields: [
           { field: { Name: "Name" } },
+          { field: { Name: "Tags" } },
+          { field: { Name: "Owner" } },
           { field: { Name: "customerId_c" } },
           { field: { Name: "hobbyName_c" } },
           { field: { Name: "CreatedOn" } },
           { field: { Name: "ModifiedOn" } }
         ],
         orderBy: [{ fieldName: "CreatedOn", sorttype: "DESC" }],
-        pagingInfo: { limit: 200, offset: 0 }
+        pagingInfo: { limit: 100, offset: 0 }
       };
       
       const response = await this.apperClient.fetchRecords(this.tableName, params);
@@ -51,6 +53,8 @@ class HobbyService {
       const params = {
         fields: [
           { field: { Name: "Name" } },
+          { field: { Name: "Tags" } },
+          { field: { Name: "Owner" } },
           { field: { Name: "customerId_c" } },
           { field: { Name: "hobbyName_c" } },
           { field: { Name: "CreatedOn" } },
@@ -77,57 +81,16 @@ class HobbyService {
     }
   }
 
-  async getByCustomerId(customerId) {
-    try {
-      if (!customerId) {
-        return [];
-      }
-
-      const params = {
-        fields: [
-          { field: { Name: "Name" } },
-          { field: { Name: "customerId_c" } },
-          { field: { Name: "hobbyName_c" } },
-          { field: { Name: "CreatedOn" } },
-          { field: { Name: "ModifiedOn" } }
-        ],
-        where: [
-          {
-            FieldName: "customerId_c",
-            Operator: "EqualTo",
-            Values: [parseInt(customerId)]
-          }
-        ],
-        orderBy: [{ fieldName: "CreatedOn", sorttype: "DESC" }]
-      };
-      
-      const response = await this.apperClient.fetchRecords(this.tableName, params);
-      
-      if (!response.success) {
-        console.error(response.message);
-        throw new Error(response.message);
-      }
-      
-      return response.data || [];
-    } catch (error) {
-      if (error?.response?.data?.message) {
-        console.error("Error fetching hobbies by customer ID:", error?.response?.data?.message);
-        throw new Error(error.response.data.message);
-      } else {
-        console.error("Error fetching hobbies by customer ID:", error.message);
-        throw new Error(error.message);
-      }
-    }
-  }
-
   async create(hobbyData) {
     try {
-      // Only include Updateable fields - customerId_c as integer for lookup
+      // Only include Updateable fields
       const params = {
         records: [{
-          Name: hobbyData.hobbyName_c || hobbyData.Name || "",
-          customerId_c: hobbyData.customerId_c ? parseInt(hobbyData.customerId_c) : null,
-          hobbyName_c: hobbyData.hobbyName_c || ""
+          Name: hobbyData.Name || hobbyData.hobbyName_c || hobbyData.hobbyName || "",
+          Tags: hobbyData.Tags || "",
+          Owner: hobbyData.Owner,
+          customerId_c: hobbyData.customerId_c || hobbyData.customerId ? parseInt(hobbyData.customerId_c || hobbyData.customerId) : null,
+          hobbyName_c: hobbyData.hobbyName_c || hobbyData.hobbyName || hobbyData.Name || ""
         }]
       };
       
@@ -172,13 +135,15 @@ class HobbyService {
         throw new Error("Hobby ID is required for update");
       }
 
-      // Only include Updateable fields - handle lookup field properly
+      // Only include Updateable fields
       const params = {
         records: [{
           Id: parseInt(id),
-          Name: hobbyData.hobbyName_c || hobbyData.Name,
-          customerId_c: hobbyData.customerId_c ? parseInt(hobbyData.customerId_c) : null,
-          hobbyName_c: hobbyData.hobbyName_c
+          Name: hobbyData.Name || hobbyData.hobbyName_c || hobbyData.hobbyName,
+          Tags: hobbyData.Tags,
+          Owner: hobbyData.Owner,
+          customerId_c: hobbyData.customerId_c || hobbyData.customerId ? parseInt(hobbyData.customerId_c || hobbyData.customerId) : null,
+          hobbyName_c: hobbyData.hobbyName_c || hobbyData.hobbyName || hobbyData.Name
         }]
       };
       

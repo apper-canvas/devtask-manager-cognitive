@@ -1,11 +1,11 @@
-const tableName = 'client_c';
-
 // Initialize ApperClient
 const { ApperClient } = window.ApperSDK;
 const apperClient = new ApperClient({
   apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
   apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
 });
+
+const tableName = 'client_c';
 
 export const clientService = {
   async getAll() {
@@ -56,6 +56,11 @@ export const clientService = {
 
   async getById(id) {
     try {
+      if (!id) {
+        console.error("Client ID is required");
+        return null;
+      }
+
       const params = {
         fields: [
           { field: { Name: "Name" } },
@@ -72,7 +77,7 @@ export const clientService = {
         ]
       };
 
-      const response = await apperClient.getRecordById(tableName, id, params);
+      const response = await apperClient.getRecordById(tableName, parseInt(id), params);
       
       if (!response.success) {
         console.error(response.message);
@@ -92,17 +97,22 @@ export const clientService = {
 
   async create(clientData) {
     try {
+      if (!clientData) {
+        console.error("Client data is required");
+        return null;
+      }
+
       // Only include Updateable fields
       const params = {
         records: [
           {
-            Name: clientData.Name || '',
+            Name: clientData.Name || clientData.name || '',
             Tags: clientData.Tags || '',
             Owner: clientData.Owner || '',
-            income_c: parseFloat(clientData.income_c) || 0,
-            gender_c: clientData.gender_c || '',
-            website_c: clientData.website_c || '',
-            customerrating_c: parseInt(clientData.customerrating_c) || 0
+            income_c: parseFloat(clientData.income_c || clientData.income) || 0,
+            gender_c: clientData.gender_c || clientData.gender || '',
+            website_c: clientData.website_c || clientData.website || '',
+            customerrating_c: parseInt(clientData.customerrating_c || clientData.customerRating) || 0
           }
         ]
       };
@@ -137,18 +147,28 @@ export const clientService = {
 
   async update(id, clientData) {
     try {
+      if (!id) {
+        console.error("Client ID is required for update");
+        return null;
+      }
+
+      if (!clientData) {
+        console.error("Client data is required for update");
+        return null;
+      }
+
       // Only include Updateable fields plus Id
       const params = {
         records: [
           {
             Id: parseInt(id),
-            Name: clientData.Name || '',
+            Name: clientData.Name || clientData.name || '',
             Tags: clientData.Tags || '',
             Owner: clientData.Owner || '',
-            income_c: parseFloat(clientData.income_c) || 0,
-            gender_c: clientData.gender_c || '',
-            website_c: clientData.website_c || '',
-            customerrating_c: parseInt(clientData.customerrating_c) || 0
+            income_c: parseFloat(clientData.income_c || clientData.income) || 0,
+            gender_c: clientData.gender_c || clientData.gender || '',
+            website_c: clientData.website_c || clientData.website || '',
+            customerrating_c: parseInt(clientData.customerrating_c || clientData.customerRating) || 0
           }
         ]
       };
@@ -183,6 +203,11 @@ export const clientService = {
 
   async delete(id) {
     try {
+      if (!id) {
+        console.error("Client ID is required for deletion");
+        return false;
+      }
+
       const params = {
         RecordIds: [parseInt(id)]
       };

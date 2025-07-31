@@ -14,6 +14,8 @@ class CustomerService {
       const params = {
         fields: [
           { field: { Name: "Name" } },
+          { field: { Name: "Tags" } },
+          { field: { Name: "Owner" } },
           { field: { Name: "firstName_c" } },
           { field: { Name: "lastName_c" } },
           { field: { Name: "email_c" } },
@@ -27,7 +29,7 @@ class CustomerService {
           { field: { Name: "ModifiedOn" } }
         ],
         orderBy: [{ fieldName: "CreatedOn", sorttype: "DESC" }],
-        pagingInfo: { limit: 200, offset: 0 }
+        pagingInfo: { limit: 100, offset: 0 }
       };
       
       const response = await this.apperClient.fetchRecords(this.tableName, params);
@@ -58,6 +60,8 @@ class CustomerService {
       const params = {
         fields: [
           { field: { Name: "Name" } },
+          { field: { Name: "Tags" } },
+          { field: { Name: "Owner" } },
           { field: { Name: "firstName_c" } },
           { field: { Name: "lastName_c" } },
           { field: { Name: "email_c" } },
@@ -96,16 +100,18 @@ class CustomerService {
       // Only include Updateable fields
       const params = {
         records: [{
-          Name: customerData.Name || `${customerData.firstName_c || ''} ${customerData.lastName_c || ''}`.trim(),
-          firstName_c: customerData.firstName_c || "",
-          lastName_c: customerData.lastName_c || "",
-          email_c: customerData.email_c || "",
-          phone_c: customerData.phone_c || "",
-          address_c: customerData.address_c || "",
-          income_c: customerData.income_c ? parseFloat(customerData.income_c) : null,
-          gender_c: customerData.gender_c || "",
-          website_c: customerData.website_c || "",
-          customerRating_c: customerData.customerRating_c ? parseInt(customerData.customerRating_c) : null
+          Name: customerData.Name || `${customerData.firstName_c || customerData.firstName || ""} ${customerData.lastName_c || customerData.lastName || ""}`.trim(),
+          Tags: customerData.Tags || "",
+          Owner: customerData.Owner,
+          firstName_c: customerData.firstName_c || customerData.firstName || "",
+          lastName_c: customerData.lastName_c || customerData.lastName || "",
+          email_c: customerData.email_c || customerData.email || "",
+          phone_c: customerData.phone_c || customerData.phone || "",
+          address_c: customerData.address_c || customerData.address || "",
+          income_c: customerData.income_c || customerData.income || 0,
+          gender_c: customerData.gender_c || customerData.gender || "",
+          website_c: customerData.website_c || customerData.website || "",
+          customerRating_c: customerData.customerRating_c || customerData.customerRating || 0
         }]
       };
       
@@ -154,16 +160,18 @@ class CustomerService {
       const params = {
         records: [{
           Id: parseInt(id),
-          Name: customerData.Name || `${customerData.firstName_c || ''} ${customerData.lastName_c || ''}`.trim(),
-          firstName_c: customerData.firstName_c,
-          lastName_c: customerData.lastName_c,
-          email_c: customerData.email_c,
-          phone_c: customerData.phone_c,
-          address_c: customerData.address_c,
-          income_c: customerData.income_c ? parseFloat(customerData.income_c) : null,
-          gender_c: customerData.gender_c,  
-          website_c: customerData.website_c,
-          customerRating_c: customerData.customerRating_c ? parseInt(customerData.customerRating_c) : null
+          Name: customerData.Name || `${customerData.firstName_c || customerData.firstName || ""} ${customerData.lastName_c || customerData.lastName || ""}`.trim(),
+          Tags: customerData.Tags,
+          Owner: customerData.Owner,
+          firstName_c: customerData.firstName_c || customerData.firstName,
+          lastName_c: customerData.lastName_c || customerData.lastName,
+          email_c: customerData.email_c || customerData.email,
+          phone_c: customerData.phone_c || customerData.phone,
+          address_c: customerData.address_c || customerData.address,
+          income_c: customerData.income_c || customerData.income,
+          gender_c: customerData.gender_c || customerData.gender,
+          website_c: customerData.website_c || customerData.website,
+          customerRating_c: customerData.customerRating_c || customerData.customerRating
         }]
       };
       
