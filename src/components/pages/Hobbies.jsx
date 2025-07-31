@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
-import Button from '@/components/atoms/Button';
-import Card from '@/components/atoms/Card';
-import Input from '@/components/atoms/Input';
-import Select from '@/components/atoms/Select';
-import ApperIcon from '@/components/ApperIcon';
-import Loading from '@/components/ui/Loading';
-import Error from '@/components/ui/Error';
-import Empty from '@/components/ui/Empty';
-import { hobbyService } from '@/services/api/hobbyService';
-import { customerService } from '@/services/api/customerService';
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { customerService } from "@/services/api/customerService";
+import { hobbyService } from "@/services/api/hobbyService";
+import ApperIcon from "@/components/ApperIcon";
+import Loading from "@/components/ui/Loading";
+import Error from "@/components/ui/Error";
+import Empty from "@/components/ui/Empty";
+import Input from "@/components/atoms/Input";
+import Button from "@/components/atoms/Button";
+import Select from "@/components/atoms/Select";
+import Card from "@/components/atoms/Card";
 
 function Hobbies() {
   const [hobbies, setHobbies] = useState([]);
@@ -20,8 +20,8 @@ function Hobbies() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [editingHobby, setEditingHobby] = useState(null);
-  const [formData, setFormData] = useState({
-    hobbyName_c: '',
+const [formData, setFormData] = useState({
+    hobbies: [],
     customerId_c: ''
   });
 
@@ -95,9 +95,10 @@ function Hobbies() {
   };
 
   const openEditModal = (hobby) => {
-    setEditingHobby(hobby);
+setEditingHobby(hobby);
+    const existingHobbies = hobby.hobbyName_c ? hobby.hobbyName_c.split(',').map(h => h.trim()) : [];
     setFormData({
-      hobbyName_c: hobby.hobbyName_c || '',
+      hobbies: existingHobbies,
       customerId_c: hobby.customerId_c?.Id || hobby.customerId_c || ''
     });
     setShowEditModal(true);
@@ -190,13 +191,31 @@ function Hobbies() {
           <div className="bg-surface rounded-lg p-6 w-full max-w-md">
             <h2 className="text-xl font-bold mb-4">Add Hobby</h2>
             <form onSubmit={handleAddHobby} className="space-y-4">
-              <Input
-                label="Hobby Name"
-                type="text"
-                required
-                value={formData.hobbyName_c}
-                onChange={(e) => setFormData(prev => ({ ...prev, hobbyName_c: e.target.value }))}
-              />
+<div className="space-y-2">
+                <label className="text-sm font-medium text-white">Select Hobbies</label>
+                <div className="grid grid-cols-2 gap-2">
+                  {['Reading', 'Gaming', 'Cooking', 'Sports', 'Music', 'Travel', 'Photography', 'Gardening'].map((hobby) => (
+                    <div key={hobby} className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        id={`add-${hobby}`}
+                        className="h-4 w-4 rounded border border-gray-600 bg-surface text-primary focus:ring-2 focus:ring-primary"
+                        checked={formData.hobbies.includes(hobby)}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setFormData(prev => ({ ...prev, hobbies: [...prev.hobbies, hobby] }));
+                          } else {
+                            setFormData(prev => ({ ...prev, hobbies: prev.hobbies.filter(h => h !== hobby) }));
+                          }
+                        }}
+                      />
+                      <label htmlFor={`add-${hobby}`} className="text-sm text-white cursor-pointer">
+                        {hobby}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              </div>
               <Select
                 label="Customer"
                 required
@@ -226,14 +245,32 @@ function Hobbies() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-surface rounded-lg p-6 w-full max-w-md">
             <h2 className="text-xl font-bold mb-4">Edit Hobby</h2>
-            <form onSubmit={handleEditHobby} className="space-y-4">
-              <Input
-                label="Hobby Name"
-                type="text"
-                required
-                value={formData.hobbyName_c}
-                onChange={(e) => setFormData(prev => ({ ...prev, hobbyName_c: e.target.value }))}
-              />
+<form onSubmit={handleEditHobby} className="space-y-4">
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-white">Select Hobbies</label>
+                <div className="grid grid-cols-2 gap-2">
+                  {['Reading', 'Gaming', 'Cooking', 'Sports', 'Music', 'Travel', 'Photography', 'Gardening'].map((hobby) => (
+                    <div key={hobby} className="flex items-center space-x-2">
+                      <input
+                        type="checkbox"
+                        id={`edit-${hobby}`}
+                        className="h-4 w-4 rounded border border-gray-600 bg-surface text-primary focus:ring-2 focus:ring-primary"
+                        checked={formData.hobbies.includes(hobby)}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setFormData(prev => ({ ...prev, hobbies: [...prev.hobbies, hobby] }));
+                          } else {
+                            setFormData(prev => ({ ...prev, hobbies: prev.hobbies.filter(h => h !== hobby) }));
+                          }
+                        }}
+                      />
+                      <label htmlFor={`edit-${hobby}`} className="text-sm text-white cursor-pointer">
+                        {hobby}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              </div>
               <Select
                 label="Customer"
                 required

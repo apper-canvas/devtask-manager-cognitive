@@ -84,13 +84,14 @@ class HobbyService {
   async create(hobbyData) {
     try {
       // Only include Updateable fields
+const hobbiesString = Array.isArray(hobbyData.hobbies) ? hobbyData.hobbies.join(', ') : (hobbyData.hobbyName_c || hobbyData.hobbyName || "");
       const params = {
         records: [{
-          Name: hobbyData.Name || hobbyData.hobbyName_c || hobbyData.hobbyName || "",
+          Name: hobbyData.Name || hobbiesString || "",
           Tags: hobbyData.Tags || "",
           Owner: hobbyData.Owner,
           customerId_c: hobbyData.customerId_c || hobbyData.customerId ? parseInt(hobbyData.customerId_c || hobbyData.customerId) : null,
-          hobbyName_c: hobbyData.hobbyName_c || hobbyData.hobbyName || hobbyData.Name || ""
+          hobbyName_c: hobbiesString
         }]
       };
       
@@ -136,14 +137,15 @@ class HobbyService {
       }
 
       // Only include Updateable fields
+const hobbiesString = Array.isArray(hobbyData.hobbies) ? hobbyData.hobbies.join(', ') : (hobbyData.hobbyName_c || hobbyData.hobbyName || "");
       const params = {
         records: [{
           Id: parseInt(id),
-          Name: hobbyData.Name || hobbyData.hobbyName_c || hobbyData.hobbyName,
+          Name: hobbyData.Name || hobbiesString,
           Tags: hobbyData.Tags,
           Owner: hobbyData.Owner,
           customerId_c: hobbyData.customerId_c || hobbyData.customerId ? parseInt(hobbyData.customerId_c || hobbyData.customerId) : null,
-          hobbyName_c: hobbyData.hobbyName_c || hobbyData.hobbyName || hobbyData.Name
+          hobbyName_c: hobbiesString
         }]
       };
       
