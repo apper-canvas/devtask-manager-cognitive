@@ -51,6 +51,9 @@ const Sidebar = () => {
           <NavigationItem to="/projects" icon="FolderOpen">
             Projects
           </NavigationItem>
+          <NavigationItem to="/customers" icon="User">
+            Customers
+          </NavigationItem>
         </nav>
         
         <div className="p-4 border-t border-gray-600">
@@ -82,7 +85,7 @@ const Sidebar = () => {
           </div>
         </div>
         
-        <nav className="flex-1 p-4 space-y-2">
+<nav className="flex-1 p-4 space-y-2">
           <NavigationItem to="/" icon="LayoutDashboard" onClick={toggleMobile}>
             Dashboard
           </NavigationItem>
@@ -91,6 +94,9 @@ const Sidebar = () => {
           </NavigationItem>
           <NavigationItem to="/projects" icon="FolderOpen" onClick={toggleMobile}>
             Projects
+          </NavigationItem>
+          <NavigationItem to="/customers" icon="User" onClick={toggleMobile}>
+            Customers
           </NavigationItem>
         </nav>
         
