@@ -106,16 +106,16 @@ export const clientService = {
       const params = {
         records: [
           {
-            Name: clientData.Name || clientData.name || '',
-            Tags: clientData.Tags || '',
-            Owner: clientData.Owner || '',
-            income_c: parseFloat(clientData.income_c || clientData.income) || 0,
-            gender_c: clientData.gender_c || clientData.gender || '',
-            website_c: clientData.website_c || clientData.website || '',
-            customerrating_c: parseInt(clientData.customerrating_c || clientData.customerRating) || 0
-          }
-        ]
-      };
+Name: clientData.Name || '',
+          Tags: clientData.Tags || '',
+          Owner: parseInt(clientData.Owner) || 0,
+          income_c: parseFloat(clientData.income_c || clientData.income) || 0,
+          gender_c: clientData.gender_c || clientData.gender || '',
+          website_c: clientData.website_c || clientData.website || '',
+          customerrating_c: parseInt(clientData.customerrating_c || clientData.customerRating) || 0
+        }
+      ]
+    };
 
       const response = await apperClient.createRecord(tableName, params);
       
@@ -162,16 +162,16 @@ export const clientService = {
         records: [
           {
             Id: parseInt(id),
-            Name: clientData.Name || clientData.name || '',
-            Tags: clientData.Tags || '',
-            Owner: clientData.Owner || '',
-            income_c: parseFloat(clientData.income_c || clientData.income) || 0,
-            gender_c: clientData.gender_c || clientData.gender || '',
-            website_c: clientData.website_c || clientData.website || '',
-            customerrating_c: parseInt(clientData.customerrating_c || clientData.customerRating) || 0
-          }
-        ]
-      };
+Name: clientData.Name || '',
+          Tags: clientData.Tags || '',
+          Owner: parseInt(clientData.Owner) || 0,
+          income_c: parseFloat(clientData.income_c || clientData.income) || 0,
+          gender_c: clientData.gender_c || clientData.gender || '',
+          website_c: clientData.website_c || clientData.website || '',
+          customerrating_c: parseInt(clientData.customerrating_c || clientData.customerRating) || 0
+        }
+      ]
+    };
 
       const response = await apperClient.updateRecord(tableName, params);
       
