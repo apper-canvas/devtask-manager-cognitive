@@ -10,7 +10,7 @@ const ProjectCard = ({ project, taskCount, completedCount, onClick, onEdit, onDe
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const progressPercentage = taskCount > 0 ? Math.round((completedCount / taskCount) * 100) : 0
 
-const handleDelete = async (e) => {
+  const handleDelete = async (e) => {
     e.stopPropagation()
     if (showDeleteConfirm) {
       try {
@@ -36,35 +36,21 @@ const handleDelete = async (e) => {
       className="p-6 hover:border-primary/50 cursor-pointer transition-all duration-200 hover:shadow-lg"
       onClick={onClick}
     >
-<div className="flex items-start justify-between mb-4">
+      <div className="flex items-start justify-between mb-4">
         <div className="flex-1 min-w-0">
           <h3 className="font-mono font-semibold text-white mb-2 truncate">{project.Name}</h3>
-          {project.description && (
-            <p className="text-sm text-gray-400 mb-3 line-clamp-2">{project.description}</p>
+          {project.description_c && (
+            <p className="text-sm text-gray-400 mb-3 line-clamp-2">{project.description_c}</p>
           )}
-          {project.repositoryUrl && (
-            <div className="flex items-center space-x-1 mb-2">
-              <ApperIcon name="Github" size={12} />
-              <a 
-                href={project.repositoryUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs text-primary hover:text-accent transition-colors truncate"
-                onClick={(e) => e.stopPropagation()}
-              >
-                Repository
-              </a>
-            </div>
-          )}
-          <p className="text-xs text-gray-500">
-            Created {format(new Date(project.createdAt), "MMM d, yyyy")}
+<p className="text-xs text-gray-500">
+            Created {format(new Date(project.createdAt_c), "MMM d, yyyy")}
           </p>
         </div>
         
         <div className="flex items-center space-x-2 ml-3">
           <div 
             className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0"
-style={{ backgroundColor: project.color }}
+style={{ backgroundColor: project.color_c }}
           >
             {project.Name.charAt(0).toUpperCase()}
           </div>
