@@ -18,14 +18,16 @@ const Clients = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedClient, setSelectedClient] = useState(null);
-  const [formData, setFormData] = useState({
+const [formData, setFormData] = useState({
     Name: '',
     Tags: '',
     Owner: '',
     income_c: '',
     gender_c: '',
     website_c: '',
-    customerrating_c: ''
+    customerrating_c: '',
+    mobile_c: '',
+    hobbies_c: ''
   });
 
   useEffect(() => {
@@ -46,28 +48,32 @@ const Clients = () => {
   };
 
   const handleAddClient = () => {
-    setFormData({
+setFormData({
       Name: '',
       Tags: '',
       Owner: '',
       income_c: '',
       gender_c: '',
       website_c: '',
-      customerrating_c: ''
+      customerrating_c: '',
+      mobile_c: '',
+      hobbies_c: ''
     });
     setShowAddModal(true);
   };
 
   const handleEditClient = (client) => {
     setSelectedClient(client);
-    setFormData({
+setFormData({
       Name: client.Name || '',
       Tags: client.Tags || '',
       Owner: client.Owner?.Name || client.Owner || '',
       income_c: client.income_c || '',
       gender_c: client.gender_c || '',
       website_c: client.website_c || '',
-      customerrating_c: client.customerrating_c || ''
+      customerrating_c: client.customerrating_c || '',
+      mobile_c: client.mobile_c || '',
+      hobbies_c: client.hobbies_c || ''
     });
     setShowEditModal(true);
   };
@@ -252,9 +258,41 @@ title="No clients yet"
                   )}
                 </div>
                 
-                <div className="flex justify-between items-center">
+<div className="flex justify-between items-center">
                   <span className="text-gray-400">Rating:</span>
                   {renderStars(client.customerrating_c)}
+                </div>
+                
+                <div className="flex justify-between">
+                  <span className="text-gray-400">Mobile:</span>
+                  {client.mobile_c ? (
+                    <a
+                      href={`tel:${client.mobile_c}`}
+                      className="text-primary hover:text-primary/80 underline"
+                    >
+                      {client.mobile_c}
+                    </a>
+                  ) : (
+                    <span className="text-gray-500">-</span>
+                  )}
+                </div>
+                
+                <div className="flex justify-between">
+                  <span className="text-gray-400">Hobbies:</span>
+                  <div className="flex flex-wrap gap-1">
+                    {client.hobbies_c ? (
+                      client.hobbies_c.split(',').map((hobby, index) => (
+                        <span
+                          key={index}
+                          className="px-2 py-1 bg-accent/20 text-accent text-xs rounded-full"
+                        >
+                          {hobby.trim()}
+                        </span>
+                      ))
+                    ) : (
+                      <span className="text-gray-500">-</span>
+                    )}
+                  </div>
                 </div>
                 
                 {client.Owner && (
@@ -370,7 +408,7 @@ title="No clients yet"
                 />
               </div>
 
-              <div>
+<div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
                   Customer Rating (1-5)
                 </label>
@@ -382,6 +420,47 @@ title="No clients yet"
                   onChange={(e) => handleInputChange('customerrating_c', e.target.value)}
                   placeholder="Enter rating (1-5)"
                 />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Mobile
+                </label>
+                <Input
+                  type="tel"
+                  value={formData.mobile_c}
+                  onChange={(e) => handleInputChange('mobile_c', e.target.value)}
+                  placeholder="Enter mobile number"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Hobbies
+                </label>
+                <div className="space-y-2">
+                  {['Reading', 'Sports', 'Travel', 'Music'].map((hobby) => (
+                    <label key={hobby} className="flex items-center">
+                      <input
+                        type="checkbox"
+                        value={hobby}
+                        checked={formData.hobbies_c ? formData.hobbies_c.split(',').includes(hobby) : false}
+                        onChange={(e) => {
+                          const currentHobbies = formData.hobbies_c ? formData.hobbies_c.split(',') : [];
+                          let updatedHobbies;
+                          if (e.target.checked) {
+                            updatedHobbies = [...currentHobbies, hobby];
+                          } else {
+                            updatedHobbies = currentHobbies.filter(h => h !== hobby);
+                          }
+                          handleInputChange('hobbies_c', updatedHobbies.join(','));
+                        }}
+                        className="mr-2 text-primary focus:ring-primary"
+                      />
+                      <span className="text-white">{hobby}</span>
+                    </label>
+                  ))}
+                </div>
               </div>
 
               <div className="flex gap-3 pt-4">
