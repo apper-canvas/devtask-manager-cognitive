@@ -1,6 +1,9 @@
-import { useState } from "react"
-import NavigationItem from "@/components/molecules/NavigationItem"
-import ApperIcon from "@/components/ApperIcon"
+import React, { useState } from "react";
+import ApperIcon from "@/components/ApperIcon";
+import NavigationItem from "@/components/molecules/NavigationItem";
+import Tasks from "@/components/pages/Tasks";
+import Dashboard from "@/components/pages/Dashboard";
+import Projects from "@/components/pages/Projects";
 
 const Sidebar = () => {
   const [isMobileOpen, setIsMobileOpen] = useState(false)
@@ -38,7 +41,7 @@ const Sidebar = () => {
           </div>
         </div>
         
-        <nav className="flex-1 p-4 space-y-2">
+<nav className="flex-1 p-4 space-y-2">
           <NavigationItem to="/" icon="LayoutDashboard">
             Dashboard
           </NavigationItem>

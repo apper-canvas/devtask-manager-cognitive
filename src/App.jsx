@@ -14,6 +14,8 @@ import Layout from "@/components/organisms/Layout";
 import Tasks from "@/components/pages/Tasks";
 import Dashboard from "@/components/pages/Dashboard";
 import Projects from "@/components/pages/Projects";
+import Customers from "@/components/pages/Customers";
+import Hobbies from "@/components/pages/Hobbies";
 
 // Create auth context
 export const AuthContext = createContext(null);
@@ -130,8 +132,10 @@ function AppContent() {
           <Route path="/reset-password/:appId/:fields" element={<ResetPassword />} />
           <Route path="/" element={<Layout />}>
             <Route index element={<Dashboard />} />
-            <Route path="tasks" element={<Tasks />} />
+<Route path="tasks" element={<Tasks />} />
             <Route path="projects" element={<Projects />} />
+            <Route path="customers" element={<Customers />} />
+            <Route path="hobbies" element={<Hobbies />} />
           </Route>
         </Routes>
         
