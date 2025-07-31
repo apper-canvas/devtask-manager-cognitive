@@ -27,7 +27,8 @@ const [formData, setFormData] = useState({
     website_c: '',
     customerrating_c: '',
     mobile_c: '',
-    hobbies_c: ''
+    hobbies_c: '',
+    peopleId_c: ''
   });
 
   useEffect(() => {
@@ -57,7 +58,8 @@ setFormData({
       website_c: '',
       customerrating_c: '',
       mobile_c: '',
-      hobbies_c: ''
+      hobbies_c: '',
+      peopleId_c: ''
     });
     setShowAddModal(true);
   };
@@ -73,7 +75,8 @@ setFormData({
       website_c: client.website_c || '',
       customerrating_c: client.customerrating_c || '',
       mobile_c: client.mobile_c || '',
-      hobbies_c: client.hobbies_c || ''
+      hobbies_c: client.hobbies_c || '',
+      peopleId_c: client.peopleId_c || ''
     });
     setShowEditModal(true);
   };
@@ -461,6 +464,20 @@ title="No clients yet"
                     </label>
                   ))}
                 </div>
+</div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  People
+                </label>
+                <Select
+                  value={formData.peopleId_c}
+                  onChange={(value) => handleInputChange('peopleId_c', value)}
+                  placeholder="Select a person"
+                >
+                  <option value="">Select a person</option>
+                  {/* People options would be populated here */}
+                </Select>
               </div>
 
               <div className="flex gap-3 pt-4">
