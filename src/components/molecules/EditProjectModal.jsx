@@ -7,10 +7,11 @@ import ApperIcon from "@/components/ApperIcon"
 import { projectService } from "@/services/api/projectService"
 
 const EditProjectModal = ({ isOpen, onClose, project, onProjectUpdated }) => {
-  const [formData, setFormData] = useState({
+const [formData, setFormData] = useState({
     name: "",
     description: "",
     repositoryUrl: "",
+    phone: "",
     color: "#00D9FF"
   })
   const [loading, setLoading] = useState(false)
@@ -21,12 +22,13 @@ const EditProjectModal = ({ isOpen, onClose, project, onProjectUpdated }) => {
     "#96CEB4", "#FECA57", "#FF9FF3", "#54A0FF"
   ]
 
-  useEffect(() => {
+useEffect(() => {
     if (project) {
       setFormData({
         name: project.name || "",
         description: project.description || "",
         repositoryUrl: project.repositoryUrl || "",
+        phone: project.phone_c || "",
         color: project.color || "#00D9FF"
       })
     }
@@ -41,10 +43,10 @@ const EditProjectModal = ({ isOpen, onClose, project, onProjectUpdated }) => {
 
     setLoading(true)
     try {
-      const updatedProject = await projectService.update(project.Id, {
-        ...formData,
-        name: formData.name.trim(),
-        description: formData.description.trim(),
+const updatedProject = await projectService.update(project.Id, {
+        Name: formData.name.trim(),
+        description_c: formData.description.trim(),
+        phone_c: formData.phone.trim(),
         repositoryUrl: formData.repositoryUrl.trim()
       })
       onProjectUpdated(updatedProject)
@@ -98,7 +100,7 @@ const EditProjectModal = ({ isOpen, onClose, project, onProjectUpdated }) => {
               placeholder="Describe your project (optional)"
               rows={3}
               maxLength={500}
-            />
+/>
           </div>
 
           <div>
@@ -110,6 +112,18 @@ const EditProjectModal = ({ isOpen, onClose, project, onProjectUpdated }) => {
               onChange={(e) => handleChange("repositoryUrl", e.target.value)}
               placeholder="https://github.com/username/repo"
               type="url"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              Phone
+            </label>
+            <Input
+              value={formData.phone}
+              onChange={(e) => handleChange("phone", e.target.value)}
+              placeholder="Enter phone number"
+              type="tel"
             />
           </div>
 

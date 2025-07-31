@@ -11,10 +11,11 @@ class ProjectService {
 
   async getAll() {
     try {
-      const params = {
+const params = {
         fields: [
           { field: { Name: "Name" } },
           { field: { Name: "description_c" } },
+          { field: { Name: "phone_c" } },
           { field: { Name: "color_c" } },
           { field: { Name: "createdAt_c" } },
           { field: { Name: "CreatedOn" } },
@@ -51,8 +52,9 @@ class ProjectService {
 
       const params = {
         fields: [
-          { field: { Name: "Name" } },
+{ field: { Name: "Name" } },
           { field: { Name: "description_c" } },
+          { field: { Name: "phone_c" } },
           { field: { Name: "color_c" } },
           { field: { Name: "createdAt_c" } },
           { field: { Name: "CreatedOn" } },
@@ -83,9 +85,10 @@ class ProjectService {
     try {
       // Only include Updateable fields
       const params = {
-        records: [{
+records: [{
           Name: projectData.name || projectData.Name,
           description_c: projectData.description || projectData.description_c || "",
+          phone_c: projectData.phone_c || "",
           color_c: projectData.color || projectData.color_c || "#00D9FF",
           createdAt_c: new Date().toISOString()
         }]
@@ -134,10 +137,11 @@ class ProjectService {
 
       // Only include Updateable fields
       const params = {
-        records: [{
+records: [{
           Id: parseInt(id),
           Name: projectData.name || projectData.Name,
           description_c: projectData.description || projectData.description_c,
+          phone_c: projectData.phone_c || "",
           color_c: projectData.color || projectData.color_c
         }]
       };

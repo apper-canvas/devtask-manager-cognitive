@@ -7,10 +7,11 @@ import ApperIcon from "@/components/ApperIcon"
 import { projectService } from "@/services/api/projectService"
 
 const AddProjectModal = ({ isOpen, onClose, onProjectAdded }) => {
-  const [formData, setFormData] = useState({
+const [formData, setFormData] = useState({
     name: "",
     description: "",
     repositoryUrl: "",
+    phone: "",
     color: "#00D9FF"
   })
   const [loading, setLoading] = useState(false)
@@ -28,11 +29,12 @@ const handleSubmit = async (e) => {
       return
     }
 
-    setLoading(true)
+setLoading(true)
     try {
       const newProject = await projectService.create({
         Name: formData.name.trim(),
         description_c: formData.description.trim(),
+        phone_c: formData.phone.trim(),
         color_c: formData.color
       })
       onProjectAdded(newProject)
@@ -87,7 +89,7 @@ const handleSubmit = async (e) => {
               placeholder="Describe your project (optional)"
               rows={3}
               maxLength={500}
-            />
+/>
           </div>
 
           <div>
@@ -99,6 +101,18 @@ const handleSubmit = async (e) => {
               onChange={(e) => handleChange("repositoryUrl", e.target.value)}
               placeholder="https://github.com/username/repo"
               type="url"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              Phone
+            </label>
+            <Input
+              value={formData.phone}
+              onChange={(e) => handleChange("phone", e.target.value)}
+              placeholder="Enter phone number"
+              type="tel"
             />
           </div>
 
