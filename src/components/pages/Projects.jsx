@@ -96,9 +96,9 @@ const handleProjectDeleted = async (projectId) => {
   if (loading) return <Loading message="Loading projects..." />
   if (error) return <Error message={error} onRetry={loadData} />
 
-  const getProjectStats = (projectId) => {
-    const projectTasks = tasks.filter(task => task.projectId === projectId)
-    const completed = projectTasks.filter(task => task.status === "done")
+const getProjectStats = (projectId) => {
+    const projectTasks = tasks.filter(task => task.projectId_c === projectId)
+    const completed = projectTasks.filter(task => task.status_c === "done")
     return {
       total: projectTasks.length,
       completed: completed.length

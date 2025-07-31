@@ -36,9 +36,9 @@ const handleDelete = async (e) => {
       className="p-6 hover:border-primary/50 cursor-pointer transition-all duration-200 hover:shadow-lg"
       onClick={onClick}
     >
-      <div className="flex items-start justify-between mb-4">
+<div className="flex items-start justify-between mb-4">
         <div className="flex-1 min-w-0">
-          <h3 className="font-mono font-semibold text-white mb-2 truncate">{project.name}</h3>
+          <h3 className="font-mono font-semibold text-white mb-2 truncate">{project.Name}</h3>
           {project.description && (
             <p className="text-sm text-gray-400 mb-3 line-clamp-2">{project.description}</p>
           )}
@@ -64,11 +64,10 @@ const handleDelete = async (e) => {
         <div className="flex items-center space-x-2 ml-3">
           <div 
             className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0"
-            style={{ backgroundColor: project.color }}
+style={{ backgroundColor: project.color }}
           >
-            {project.name.charAt(0).toUpperCase()}
+            {project.Name.charAt(0).toUpperCase()}
           </div>
-          
           <div className="flex items-center space-x-1">
             <button
               onClick={handleEdit}
