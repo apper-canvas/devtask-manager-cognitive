@@ -327,7 +327,7 @@ title="No clients yet"
               </Button>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+<form onSubmit={handleSubmit} className="space-y-4 max-h-[80vh] overflow-y-auto pr-2">
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
                   Name *
