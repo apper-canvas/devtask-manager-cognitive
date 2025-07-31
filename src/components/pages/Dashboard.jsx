@@ -40,7 +40,7 @@ const Dashboard = () => {
   if (error) return <Error message={error} onRetry={loadData} />
 
 const recentTask = tasks
-    .sort((a, b) => new Date(b.updatedAt_c || b.ModifiedOn) - new Date(a.updatedAt_c || a.ModifiedOn))
+    .sort((a, b) => new Date(b.updatedAt_c || b.updatedAt || b.ModifiedOn) - new Date(a.updatedAt_c || a.updatedAt || a.ModifiedOn))
     .find(task => task.status_c === "inProgress") || tasks[0]
 
   const recentTaskProject = recentTask ? projects.find(p => p.Id === recentTask.projectId_c) : null
@@ -70,24 +70,24 @@ const recentTask = tasks
           <h2 className="text-xl font-mono font-semibold text-white">What was I doing?</h2>
         </div>
         
-        {recentTask ? (
+{recentTask ? (
           <div className="space-y-3">
             <div className="flex items-start justify-between">
               <div className="flex-1">
-                <h3 className="font-semibold text-white mb-1">{recentTask.title}</h3>
-                {recentTask.description && (
-                  <p className="text-gray-400 text-sm mb-2">{recentTask.description}</p>
+                <h3 className="font-semibold text-white mb-1">{recentTask.title_c || recentTask.Name}</h3>
+                {recentTask.description_c && (
+                  <p className="text-gray-400 text-sm mb-2">{recentTask.description_c}</p>
                 )}
                 <div className="flex items-center space-x-2 text-xs text-gray-500">
                   <span>{recentTaskProject?.name || "No Project"}</span>
                   <span>•</span>
-                  <span>Last updated {format(new Date(recentTask.updatedAt), "MMM d 'at' h:mm a")}</span>
+                  <span>Last updated {(recentTask.updatedAt_c || recentTask.updatedAt || recentTask.ModifiedOn) ? format(new Date(recentTask.updatedAt_c || recentTask.updatedAt || recentTask.ModifiedOn), "MMM d 'at' h:mm a") : "Unknown"}</span>
                 </div>
               </div>
               <div className="flex items-center space-x-2 ml-4">
-                <Badge variant={recentTask.priority}>{recentTask.priority}</Badge>
-                <Badge variant={recentTask.status}>
-                  {recentTask.status === "inProgress" ? "In Progress" : recentTask.status}
+                <Badge variant={recentTask.priority_c}>{recentTask.priority_c}</Badge>
+                <Badge variant={recentTask.status_c}>
+                  {recentTask.status_c === "inProgress" ? "In Progress" : recentTask.status_c}
                 </Badge>
               </div>
             </div>
