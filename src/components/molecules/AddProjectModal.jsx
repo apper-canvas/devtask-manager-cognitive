@@ -10,7 +10,7 @@ const AddProjectModal = ({ isOpen, onClose, onProjectAdded }) => {
 const [formData, setFormData] = useState({
     name: "",
     description: "",
-    repositoryUrl: "",
+    website: "",
     phone: "",
     color: "#00D9FF"
   })
@@ -38,7 +38,7 @@ setLoading(true)
         color_c: formData.color
       })
       onProjectAdded(newProject)
-      setFormData({ name: "", description: "", repositoryUrl: "", color: "#00D9FF" })
+setFormData({ name: "", description: "", website: "", phone: "", color: "#00D9FF" })
     } catch (error) {
       toast.error(error.message || "Failed to create project")
     } finally {
@@ -92,14 +92,14 @@ setLoading(true)
 />
           </div>
 
-          <div>
+<div>
             <label className="block text-sm font-medium text-gray-300 mb-2">
-              Repository URL
+              Website
             </label>
             <Input
-              value={formData.repositoryUrl}
-              onChange={(e) => handleChange("repositoryUrl", e.target.value)}
-              placeholder="https://github.com/username/repo"
+              value={formData.website}
+              onChange={(e) => handleChange("website", e.target.value)}
+              placeholder="https://example.com"
               type="url"
             />
           </div>

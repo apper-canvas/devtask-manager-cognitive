@@ -10,7 +10,7 @@ const EditProjectModal = ({ isOpen, onClose, project, onProjectUpdated }) => {
 const [formData, setFormData] = useState({
     name: "",
     description: "",
-    repositoryUrl: "",
+    website: "",
     phone: "",
     color: "#00D9FF"
   })
@@ -27,7 +27,7 @@ useEffect(() => {
       setFormData({
         name: project.name || "",
         description: project.description || "",
-        repositoryUrl: project.repositoryUrl || "",
+        website: project.website || project.repositoryUrl || "",
         phone: project.phone_c || "",
         color: project.color || "#00D9FF"
       })
@@ -47,7 +47,7 @@ const updatedProject = await projectService.update(project.Id, {
         Name: formData.name.trim(),
         description_c: formData.description.trim(),
         phone_c: formData.phone.trim(),
-        repositoryUrl: formData.repositoryUrl.trim()
+        website: formData.website.trim()
       })
       onProjectUpdated(updatedProject)
     } catch (error) {
@@ -103,14 +103,14 @@ const updatedProject = await projectService.update(project.Id, {
 />
           </div>
 
-          <div>
+<div>
             <label className="block text-sm font-medium text-gray-300 mb-2">
-              Repository URL
+              Website
             </label>
             <Input
-              value={formData.repositoryUrl}
-              onChange={(e) => handleChange("repositoryUrl", e.target.value)}
-              placeholder="https://github.com/username/repo"
+              value={formData.website}
+              onChange={(e) => handleChange("website", e.target.value)}
+              placeholder="https://example.com"
               type="url"
             />
           </div>
