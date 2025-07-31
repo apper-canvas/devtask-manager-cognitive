@@ -16,7 +16,7 @@ import Dashboard from "@/components/pages/Dashboard";
 import Projects from "@/components/pages/Projects";
 import Customers from "@/components/pages/Customers";
 import Hobbies from "@/components/pages/Hobbies";
-
+import Profile from "@/components/pages/Profile";
 // Create auth context
 export const AuthContext = createContext(null);
 
@@ -134,8 +134,9 @@ function AppContent() {
             <Route index element={<Dashboard />} />
 <Route path="tasks" element={<Tasks />} />
             <Route path="projects" element={<Projects />} />
-            <Route path="customers" element={<Customers />} />
+<Route path="customers" element={<Customers />} />
             <Route path="hobbies" element={<Hobbies />} />
+            <Route path="profile" element={<Profile />} />
           </Route>
         </Routes>
         
