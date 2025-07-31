@@ -39,11 +39,11 @@ const Dashboard = () => {
   if (loading) return <Loading message="Loading dashboard..." />
   if (error) return <Error message={error} onRetry={loadData} />
 
-  const recentTask = tasks
-    .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
-    .find(task => task.status === "inProgress") || tasks[0]
+const recentTask = tasks
+    .sort((a, b) => new Date(b.updatedAt_c || b.ModifiedOn) - new Date(a.updatedAt_c || a.ModifiedOn))
+    .find(task => task.status_c === "inProgress") || tasks[0]
 
-  const recentTaskProject = recentTask ? projects.find(p => p.Id === recentTask.projectId) : null
+  const recentTaskProject = recentTask ? projects.find(p => p.Id === recentTask.projectId_c) : null
 
   const stats = {
     totalTasks: tasks.length,
@@ -157,19 +157,19 @@ const Dashboard = () => {
         
         {recentActivity.length > 0 ? (
           <div className="space-y-4">
-            {recentActivity.map(task => {
-              const project = projects.find(p => p.Id === task.projectId)
+{recentActivity.map(task => {
+              const project = projects.find(p => p.Id === task.projectId_c)
               return (
                 <div key={task.Id} className="flex items-center space-x-4 p-3 rounded-lg hover:bg-surface/50 transition-colors">
                   <div className="w-2 h-2 rounded-full bg-primary flex-shrink-0" />
                   <div className="flex-1 min-w-0">
-                    <p className="text-white font-medium truncate">{task.title}</p>
+                    <p className="text-white font-medium truncate">{task.title_c}</p>
                     <p className="text-xs text-gray-500">
-                      {project?.name || "No Project"} • {format(new Date(task.updatedAt), "MMM d 'at' h:mm a")}
+                      {project?.Name || "No Project"} • {format(new Date(task.updatedAt_c || task.ModifiedOn), "MMM d 'at' h:mm a")}
                     </p>
                   </div>
-                  <Badge variant={task.status} className="flex-shrink-0">
-                    {task.status === "inProgress" ? "In Progress" : task.status}
+                  <Badge variant={task.status_c} className="flex-shrink-0">
+                    {task.status_c === "inProgress" ? "In Progress" : task.status_c}
                   </Badge>
                 </div>
               )

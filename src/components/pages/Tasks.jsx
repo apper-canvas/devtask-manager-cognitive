@@ -132,11 +132,11 @@ const handleTaskDetailsUpdated = (updatedTask) => {
             className="bg-surface border border-gray-600 rounded-lg px-3 py-2 text-white text-sm focus:border-primary focus:outline-none"
           >
 <option value="all">All Projects ({validTasks.length})</option>
-            {projects.map(project => {
-              const projectTaskCount = validTasks.filter(task => task.projectId === project.Id).length
+{projects.map(project => {
+              const projectTaskCount = validTasks.filter(task => task.projectId_c === project.Id).length
               return (
                 <option key={project.Id} value={project.Id}>
-                  {project.name} ({projectTaskCount})
+                  {project.Name} ({projectTaskCount})
                 </option>
               )
             })}
@@ -171,8 +171,8 @@ const handleTaskDetailsUpdated = (updatedTask) => {
         <div className="grid gap-4">
           {filteredTasks.map(task => {
             const project = projects.find(p => p.Id === task.projectId)
-            return (
-<TaskCard
+return (
+              <TaskCard
                 key={task.Id}
                 task={task}
                 project={project}

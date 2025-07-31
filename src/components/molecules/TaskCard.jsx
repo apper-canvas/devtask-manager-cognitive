@@ -21,14 +21,14 @@ const handleStatusToggle = async (e) => {
       
       const updatedTask = await taskService.update(task.Id, {
         ...task,
-        status: statusMap[task.status],
-        updatedAt: new Date().toISOString()
+        status_c: statusMap[task.status_c],
+        updatedAt_c: new Date().toISOString()
       })
       
       onTaskUpdate(updatedTask)
       toast.success("Task status updated!")
     } catch (error) {
-      toast.error("Failed to update task status")
+      toast.error(error.message || "Failed to update task status")
     } finally {
       setIsUpdating(false)
     }
@@ -60,14 +60,14 @@ const handleStatusToggle = async (e) => {
     >
       <div className="flex items-start justify-between mb-3">
         <div className="flex-1">
-          <h3 className="font-mono font-semibold text-white mb-1">{task.title}</h3>
-          {task.description && (
-            <p className="text-sm text-gray-400 mb-2">{task.description}</p>
+<h3 className="font-mono font-semibold text-white mb-1">{task.title_c}</h3>
+          {task.description_c && (
+            <p className="text-sm text-gray-400 mb-2">{task.description_c}</p>
           )}
           <div className="flex items-center space-x-2 text-xs text-gray-500">
-            <span>{project?.name || "No Project"}</span>
+            <span>{project?.Name || "No Project"}</span>
             <span>•</span>
-            <span>{format(new Date(task.createdAt), "MMM d")}</span>
+            <span>{format(new Date(task.createdAt_c || task.CreatedOn), "MMM d")}</span>
           </div>
         </div>
         

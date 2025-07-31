@@ -21,7 +21,7 @@ const AddProjectModal = ({ isOpen, onClose, onProjectAdded }) => {
     "#96CEB4", "#FECA57", "#FF9FF3", "#54A0FF"
   ]
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault()
     if (!formData.name.trim()) {
       toast.error("Project name is required")
@@ -31,15 +31,14 @@ const AddProjectModal = ({ isOpen, onClose, onProjectAdded }) => {
     setLoading(true)
     try {
       const newProject = await projectService.create({
-        ...formData,
-        name: formData.name.trim(),
-        description: formData.description.trim(),
-        repositoryUrl: formData.repositoryUrl.trim()
+        Name: formData.name.trim(),
+        description_c: formData.description.trim(),
+        color_c: formData.color
       })
       onProjectAdded(newProject)
       setFormData({ name: "", description: "", repositoryUrl: "", color: "#00D9FF" })
     } catch (error) {
-      toast.error("Failed to create project")
+      toast.error(error.message || "Failed to create project")
     } finally {
       setLoading(false)
     }
